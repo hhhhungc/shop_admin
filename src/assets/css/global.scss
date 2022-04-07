@@ -1,0 +1,14 @@
+@import '../fonts/iconfont.css';
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cover-fit {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
