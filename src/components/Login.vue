@@ -47,7 +47,7 @@ export default {
         // 驗證用戶名
         username: [
           { required: true, message: '請輸入登入名稱', trigger: 'blur' },
-          { min: 3, max: 10, message: '長度在 3 到 10 個字符', trigger: 'blur' }
+          { min: 4, max: 10, message: '長度在 4 到 10 個字符', trigger: 'blur' }
         ],
         // 驗證密碼
         password: [
@@ -69,7 +69,7 @@ export default {
           return this.$message.error('登入失敗')
         }
         this.$message.success('登入成功')
-        console.log(res.data.token)
+        // console.log(res.data.token)
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
         /**
