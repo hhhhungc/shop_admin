@@ -5,6 +5,7 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  min-width: 960;
 }
 
 .cover-fit {
@@ -22,10 +23,16 @@ body,
   margin-top: 15px;
   font-size: 12px;
 }
+
 .el-pagination {
   margin-top: 15px;
   text-align: center;
 }
+
 .el-card {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.el-table__expanded-cell[class*='cell'] {
+  padding: 20px 50px;
 }

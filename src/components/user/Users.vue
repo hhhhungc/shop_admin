@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 麵包屑 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首頁</el-breadcrumb-item>
-      <el-breadcrumb-item>用戶管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用戶列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="用戶管理" name2="用戶列表" />
 
     <!-- 卡片 -->
     <el-card>
@@ -36,10 +32,10 @@
       <el-table :data="userList" style="width: 100%" border stripe>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column prop="username" label="姓名"> </el-table-column>
-        <el-table-column prop="mobile" label="手機號"> </el-table-column>
-        <el-table-column prop="email" label="郵箱"> </el-table-column>
+        <el-table-column prop="mobile" label="手机号"> </el-table-column>
+        <el-table-column prop="email" label="邮箱"> </el-table-column>
         <el-table-column prop="role_name" label="角色"> </el-table-column>
-        <el-table-column prop="mg_state" label="狀態">
+        <el-table-column prop="mg_state" label="状态">
           <template slot-scope="scope">
             <el-switch
               v-model="scope.row.mg_state"
@@ -72,6 +68,7 @@
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
+                @click="setRole(scope.row)"
               ></el-button>
             </el-tooltip>
           </template>
@@ -115,7 +112,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="addUser">確定</el-button>
+        <el-button type="primary" @click="addUser">确定</el-button>
       </span>
     </el-dialog>
 
@@ -135,31 +132,61 @@
         <el-form-item label="用戶名">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="郵箱" prop="email">
+        <el-form-item label="邮箱" prop="email">
           <el-input v-model="editForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="手機號" prop="mobile">
+        <el-form-item label="手机号" prop="mobile">
           <el-input v-model="editForm.mobile"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="editUser">確定</el-button>
+        <el-button type="primary" @click="editUser">确定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 分配属性對話框 -->
+    <el-dialog
+      title="分配角色"
+      :visible.sync="setRoleDialogVisible"
+      width="50%"
+      @close="setRoleDialogClose"
+    >
+      <div>
+        <p>当前的用户: {{ userInfo.username }}</p>
+        <p>当前的角色: {{ userInfo.role_name }}</p>
+        <p>
+          当前新角色:
+          <el-select v-model="newRoleId" placeholder="请选择新角色">
+            <el-option
+              v-for="item in rolesList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveRole">确定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import Breadcrumb from '../Breadcrumb.vue'
 export default {
   name: 'UserPage',
+  components: { Breadcrumb },
   data() {
     const checkEmail = (rule, value, cb) => {
       const reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]{2,4})$/
       if (reg.test(value)) {
         return cb()
       } else {
-        cb(new Error('請輸入合法的郵箱'))
+        cb(new Error('请输入合法的邮箱'))
       }
     }
     const checkMobile = (rule, value, cb) => {
@@ -168,11 +195,11 @@ export default {
       if (reg.test(value)) {
         return cb()
       } else {
-        cb(new Error('請輸入合法的手機號'))
+        cb(new Error('请输入合法的手机号'))
       }
     }
     return {
-      // 獲取用戶列表參數對象
+      // 获取用戶列表參數對象
       queryInfo: {
         query: '',
         pagenum: 1,
@@ -189,19 +216,19 @@ export default {
       },
       addFormRules: {
         username: [
-          { required: true, message: '請輸入用戶名', trigger: 'blur' },
-          { min: 4, max: 10, message: '長度在 4 到 10 個字符', trigger: 'blur' }
+          { required: true, message: '请输入用戶名', trigger: 'blur' },
+          { min: 4, max: 10, message: '长度在 4 到 10 個字符', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '請輸入密碼', trigger: 'blur' },
-          { min: 4, max: 10, message: '長度在 4 到 10 個字符', trigger: 'blur' }
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 4, max: 10, message: '长度在 4 到 10 個字符', trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '請輸入郵箱', trigger: 'blur' },
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
           { validator: checkEmail, trigger: 'blur' }
         ],
         mobile: [
-          { required: true, message: '請輸入手機號', trigger: 'blur' },
+          { required: true, message: '请输入手机号', trigger: 'blur' },
           {
             validator: checkMobile,
             trigger: 'blur'
@@ -215,17 +242,17 @@ export default {
           type: 'text'
         },
         {
-          label: '密碼',
+          label: '密码',
           name: 'password',
           type: 'password'
         },
         {
-          label: '郵箱',
+          label: '邮箱',
           name: 'email',
           type: 'email'
         },
         {
-          label: '手機',
+          label: '手机号',
           name: 'mobile',
           type: 'tel'
         }
@@ -239,26 +266,31 @@ export default {
       },
       editFormRules: {
         email: [
-          { required: true, message: '請輸入郵箱', trigger: 'blur' },
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
           { validator: checkEmail, trigger: 'blur' }
         ],
         mobile: [
-          { required: true, message: '請輸入手機號', trigger: 'blur' },
+          { required: true, message: '请输入手机号', trigger: 'blur' },
           {
             validator: checkMobile,
             trigger: 'blur'
           }
         ]
-      }
+      },
+      setRoleDialogVisible: false,
+      userInfo: {},
+      newRoleId: '',
+      rolesList: []
     }
   },
   methods: {
+    // 获取用户列表
     async getUserList() {
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo
       })
       if (res.meta.status !== 200) {
-        return this.$$message.error('獲取用戶列表失敗')
+        return this.$$message.error('获取用戶列表失败')
       } else {
         this.userList = res.data.users
         this.total = res.data.total
@@ -274,16 +306,16 @@ export default {
       this.queryInfo.pagenum = newPage
       this.getUserList()
     },
-    // 改變用戶狀態
+    // 改變用戶状态
     async handleChangeState(user) {
       const { data: res } = await this.$http.put(
         `users/${user.id}/state/${user.mg_state}`
       )
       if (res.meta.status !== 200) {
         user.mg_state = !user.mg_state
-        return this.$message.error('改變用戶狀態失敗！')
+        return this.$message.error('改变用戶状态失败！')
       } else {
-        this.$message.success('改變用戶狀態成功！')
+        this.$message.success('改变用戶状态成功！')
       }
     },
     // 監聽添加用戶對話框關閉
@@ -292,11 +324,10 @@ export default {
     },
     // 添加新用戶
     addUser() {
-      // console.log(this.addForm)
       this.$refs.addFormRef.validate(async (valid) => {
         if (!valid) return
         const { data: res } = await this.$http.post('users', this.addForm)
-        if (res.meta.status !== 201) return this.$message.error('添加用戶失敗')
+        if (res.meta.status !== 201) return this.$message.error('添加用戶失败')
         this.addDialogVisible = false
         this.getUserList()
         this.$message.success('添加用戶成功')
@@ -306,7 +337,7 @@ export default {
     async editDialog(id) {
       const { data: res } = await this.$http.get(`users/${id}`)
       if (res.meta.status !== 200) {
-        return this.$message.error('查詢用戶訊息失敗')
+        return this.$message.error('查询用戶信息失败')
       } else {
         this.editDialogVisible = true
         this.editForm = res.data
@@ -315,6 +346,7 @@ export default {
     // 監聽修改用戶對話框關閉
     editDialogClose() {
       this.$refs.editFormRef.resetFields()
+      this.editForm = {}
     },
     // 修改用戶信息並提交
     editUser() {
@@ -324,15 +356,15 @@ export default {
           `users/${this.editForm.id}`,
           { email: this.editForm.email, mobile: this.editForm.mobile }
         )
-        if (res.meta.status !== 200) return this.$message.error('修改用戶失敗')
+        if (res.meta.status !== 200) return this.$message.error('修改用戶失败')
         this.editDialogVisible = false
         this.getUserList()
         this.$message.success('修改用戶成功')
       })
     },
-    // 確認刪除 對話框
+    // 確認删除 對話框
     async removeUser(id) {
-      const confirmResult = await this.$confirm('確認刪除？', '提示', {
+      const confirmResult = await this.$confirm('确认删除該用戶嗎？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -341,13 +373,46 @@ export default {
       // 確認 --> confirm
       // 取消 --> cancel
       if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消刪除')
+        return this.$message.info('已取消删除')
       }
       const { data: res } = await this.$http.delete(`users/${id}`)
-      if (res.meta.status === 200) {
-        this.getUserList()
-        this.$message.success('刪除用戶成功')
+      if (res.meta.status !== 200) return this.$message.error('删除用戶失败')
+      this.getUserList()
+      this.$message.success('删除用戶成功')
+    },
+    // 分配角色 對話框
+    async setRole(user) {
+      this.userInfo = user
+      this.setRoleDialogVisible = true
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取角色列表失败')
+      } else {
+        this.rolesList = res.data
       }
+    },
+    // 点击按钮分配角色
+    async saveRole() {
+      if (!this.newRoleId) {
+        return this.$message.error('请选择要分配的角色')
+      }
+      const { data: res } = await this.$http.put(
+        `users/${this.userInfo.id}/role
+`,
+        { rid: this.newRoleId }
+      )
+      if (res.meta.status !== 200) {
+        return this.$message.error('分配角色权限失败')
+      } else {
+        this.getUserList()
+        this.setRoleDialogVisible = false
+        this.$message.success('更新角色权限成功')
+      }
+    },
+    // 监听分配角色对话框关闭
+    setRoleDialogClose() {
+      this.newRoleId = ''
+      this.userInfo = {}
     }
   },
   created() {
@@ -355,5 +420,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

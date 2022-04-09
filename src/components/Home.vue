@@ -74,7 +74,7 @@ export default {
       window.sessionStorage.clear()
       this.$router.push('/login')
     },
-    // 獲取所有菜單
+    // 获取所有菜單
     async getMenuList() {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) {
@@ -139,7 +139,7 @@ export default {
 }
 
 .el-main {
-  background-color: #fff;
+  background-color: #eee;
 }
 
 .iconfont {

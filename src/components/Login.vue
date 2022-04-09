@@ -46,13 +46,13 @@ export default {
       loginFormRules: {
         // 驗證用戶名
         username: [
-          { required: true, message: '請輸入登入名稱', trigger: 'blur' },
-          { min: 4, max: 10, message: '長度在 4 到 10 個字符', trigger: 'blur' }
+          { required: true, message: '请输入登入名称', trigger: 'blur' },
+          { min: 4, max: 10, message: '长度在 4 到 10 個字符', trigger: 'blur' }
         ],
-        // 驗證密碼
+        // 驗證密码
         password: [
-          { required: true, message: '請輸入登入密碼', trigger: 'blur' },
-          { min: 4, max: 8, message: '長度在 4 到 6 個字符', trigger: 'blur' }
+          { required: true, message: '请输入登入密码', trigger: 'blur' },
+          { min: 4, max: 8, message: '长度在 4 到 6 個字符', trigger: 'blur' }
         ]
       }
     }
@@ -66,7 +66,7 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) {
-          return this.$message.error('登入失敗')
+          return this.$message.error('登入失败')
         }
         this.$message.success('登入成功')
         // console.log(res.data.token)
