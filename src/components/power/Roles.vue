@@ -58,7 +58,7 @@
           <template slot-scope="scope">
             <el-button
               type="primary"
-              icon="el-icon-search"
+              icon="el-icon-edit"
               size="mini"
               @click="editDialog(scope.row.id)"
               >编辑</el-button
