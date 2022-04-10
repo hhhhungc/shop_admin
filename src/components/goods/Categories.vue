@@ -287,7 +287,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).catch((err) => console.log(err))
+      }).catch((err) => err)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       } else {
