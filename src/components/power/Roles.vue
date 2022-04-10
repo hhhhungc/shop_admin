@@ -355,9 +355,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-tag {
-  margin: 8px;
-}
 .border-top {
   border-top: 1px solid #eee;
 }
