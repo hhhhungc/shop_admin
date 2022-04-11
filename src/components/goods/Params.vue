@@ -298,7 +298,6 @@ export default {
           this.onlyTableData = res.data
         }
       }
-      // console.log(res.data)
     },
     // 监听添加表格 关闭
     addFormClose() {

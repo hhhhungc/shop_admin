@@ -7,40 +7,49 @@ body,
   padding: 0;
   min-width: 960;
 }
-
 .cover-fit {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-
 .el-breadcrumb {
   margin-bottom: 15px;
   font-size: 12px;
 }
-
 .el-table {
   margin-top: 15px;
   font-size: 12px;
 }
-
 .el-pagination {
   margin-top: 15px;
   text-align: center;
 }
-
 .el-card {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) !important;
 }
-
 .el-table__expanded-cell[class*='cell'] {
   padding: 20px 50px;
 }
-
 .el-cascader-panel {
   max-height: 250px;
 }
-
 .el-tag {
   margin: 8px;
+}
+.el-steps {
+  margin: 15px 0;
+  justify-content: center;
+}
+.el-step__title {
+  font-size: 14px;
+}
+.el-tabs--left .el-tabs__header.is-left {
+  margin-right: 20px;
+}
+
+.el-tabs__content {
+  margin-right: 20px;
+}
+.ql-editor {
+  min-height: 300px;
 }
