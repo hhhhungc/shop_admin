@@ -369,9 +369,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).catch((err) => err)
-      // console.log(confirmResult)
-      // 確認 --> confirm
-      // 取消 --> cancel
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }

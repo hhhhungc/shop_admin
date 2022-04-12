@@ -27,6 +27,7 @@ const Add = () => import(/* webpackChunkName: "goods" */ '../components/goods/Ad
 const Edit = () => import(/* webpackChunkName: "goods" */ '../components/goods/Edit.vue')
 
 // import Order from '../components/order/Order.vue'
+const OrderList = () => import(/* webpackChunkName: "order_report" */ '../components/order/OrderList.vue')
 const Order = () => import(/* webpackChunkName: "order_report" */ '../components/order/Order.vue')
 // import Report from '../components/report/Report.vue'
 const Report = () => import(/* webpackChunkName: "order_report" */ '../components/report/Report.vue')
@@ -57,7 +58,8 @@ const router = new VueRouter({
         { path: '/categories', component: Categories },
         { path: '/goods/add', component: Add },
         { path: '/goods/edit', component: Edit },
-        { path: '/orders', component: Order },
+        { path: '/orders', component: OrderList },
+        { path: '/order', component: Order },
         { path: '/reports', component: Report }
       ]
     }

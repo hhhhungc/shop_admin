@@ -87,15 +87,12 @@ export default {
       this.isCollapse = !this.isCollapse
     },
     saveNavState(activePath) {
-      // console.log(this.$route.path)
-      // this.activePath = this.$route.path
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
     }
   },
   created() {
     this.getMenuList()
-    // this.saveNavState()
     this.activePath = window.sessionStorage.getItem('activePath')
   }
 }

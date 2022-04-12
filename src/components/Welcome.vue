@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <h3>welcome</h3>
   </div>
 </template>
@@ -9,5 +9,3 @@ export default {
   name: 'WelcomePage'
 }
 </script>
-
-<style lang="scss" scoped></style>
