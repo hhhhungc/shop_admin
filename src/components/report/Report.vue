@@ -56,7 +56,7 @@ export default {
   },
   async mounted() {
     // 3. 初始化准备好的dom元素
-    var myChart = echarts.init(document.getElementById('main'))
+    const myChart = echarts.init(document.getElementById('main'))
 
     const { data: res } = await this.$http.get('reports/type/1')
     if (res.meta.status !== 200) {

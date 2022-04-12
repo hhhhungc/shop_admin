@@ -65,7 +65,7 @@ export default {
         102: 'icon-danju',
         145: 'icon-baobiao'
       },
-      isCollapse: true,
+      isCollapse: false,
       activePath: ''
     }
   },

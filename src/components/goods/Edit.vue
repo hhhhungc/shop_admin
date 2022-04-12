@@ -304,7 +304,7 @@ export default {
         })
       })
       const { data: res } = await this.$http.put(`goods/${this.id}`, form)
-      console.log('修改成功', res)
+      // console.log('修改成功', res)
       if (res.meta.status !== 200) {
         return this.$message.error('修改商品失败')
       } else {

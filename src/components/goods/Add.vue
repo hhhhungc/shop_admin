@@ -304,7 +304,7 @@ export default {
         })
       })
       const { data: res } = await this.$http.post('goods', form)
-      console.log('添加成功 ', res)
+      // console.log('添加成功 ', res)
       if (res.meta.status !== 201) {
         return this.$message.error('添加商品失败')
       } else {
