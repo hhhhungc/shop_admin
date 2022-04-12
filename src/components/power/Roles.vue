@@ -17,7 +17,7 @@
           <template slot-scope="scope">
             <el-row
               v-for="(item1, key1) in scope.row.children"
-              :key="item1.id"
+              :key="key1"
               :class="[key1 === 0 ? '' : 'border-top', 'flex-center']"
             >
               <el-col :span="5">
@@ -27,7 +27,7 @@
               <el-col :span="19">
                 <el-row
                   v-for="(item2, key2) in item1.children"
-                  :key="item2.id"
+                  :key="key2"
                   :class="[key2 === 0 ? '' : 'border-top', 'flex-center']"
                 >
                   <el-col :span="6">
@@ -37,8 +37,8 @@
                   <el-col :span="18">
                     <el-tag
                       :span="14"
-                      v-for="item3 in item2.children"
-                      :key="item3.id"
+                      v-for="(item3, key3) in item2.children"
+                      :key="key3"
                       type="warning"
                       closable
                       @close="removeRightById(scope.row, item3.id)"

@@ -1,24 +1,18 @@
-# shop
+# shop_admin 後台管理系統
 
-## Project setup
-```
-npm install
-```
+## demo
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+https://hhhhungc.github.io/shop_admin/
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 簡介
 
-### Lints and fixes files
-```
-npm run lint
-```
+使用 vue2 製作的後台管理系統項目，包含用戶管理、權限管理、商品管理、訂單管理、數據統計等內容。
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 使用技術
+
+- vue
+- vue-router
+- axios
+- element-ui
+- echarts
+- scss
