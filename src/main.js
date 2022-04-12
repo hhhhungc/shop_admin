@@ -8,8 +8,8 @@ import './plugins/vue-table-with-tree-grid'
 import './assets/css/global.scss'
 
 import axios from 'axios'
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
-// axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
+// axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
 // 通過 axios 請求攔截器添加 token
 axios.interceptors.request.use((config) => {
   // console.log(config)

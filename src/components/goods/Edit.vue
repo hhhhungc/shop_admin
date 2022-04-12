@@ -334,9 +334,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-cascader {
-  width: 100%;
-}
 .el-checkbox {
   margin: 0 10px 10px 0 !important;
 }

@@ -311,15 +311,9 @@ export default {
 .treetable {
   margin-top: 15px;
 }
-
-.el-cascader {
-  width: 100%;
-}
-
 .el-icon-success {
   color: lightgreen;
 }
-
 .el-icon-error {
   color: red;
 }

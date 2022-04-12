@@ -30,6 +30,9 @@ body,
 .el-table__expanded-cell[class*='cell'] {
   padding: 20px 50px;
 }
+.el-cascader {
+  width: 100%;
+}
 .el-cascader-panel {
   max-height: 250px;
 }
